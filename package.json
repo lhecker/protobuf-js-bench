@@ -1,0 +1,13 @@
+{
+  "name": "protobuf-js-bench",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Leonard Hecker <leonard@hecker.io>",
+  "license": "MIT",
+  "dependencies": {
+    "benchmark": "^2.1.1"
+  },
+  "optionalDependencies": {
+    "microtime": "^2.1.1"
+  }
+}
