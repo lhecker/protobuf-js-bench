@@ -50,22 +50,25 @@ suite.on('cycle', (event) => {
 		console.error(bench.error.stack);
 	} else {
 		const stats = bench.stats;
-		console.log(
-			'%s %s samples %s ops/sec ±%s% %s ns/op',
-			bench.name,
-			leftPad(stats.sample.length, 5),
-			leftPad(Math.round(bench.hz), 14),
-			stats.rme.toFixed(2),
-			leftPad(Math.round(stats.mean * 1e9), 14)
-		);
+		logTableRow(bench.name, stats.sample.length, Math.round(bench.hz), Math.round(stats.mean * 1e9), stats.rme.toFixed(2) + '%');
 	}
 });
 
-console.log('Running...');
+logTableRow('name', 'samples', 'ops/sec', 'ns/op', 'rmse');
 suite.run();
+
+function logTableRow(name, samples, hz, mean, rmse) {
+	console.log(`${rightPad(name, 26)}   ${leftPad(samples, 12)}   ${leftPad(hz, 12)}   ${leftPad(mean, 12)}   ${rmse}`);
+}
 
 function leftPad(num, length, padChar) {
     const n = String(num);
     const r = Math.max(0, length - n.length);
     return (padChar || ' ')[0].repeat(r) + n;
+}
+
+function rightPad(num, length, padChar) {
+    const n = String(num);
+    const r = Math.max(0, length - n.length);
+    return n + (padChar || ' ')[0].repeat(r);
 }
